@@ -31,6 +31,16 @@ Element::getPropertiesByID($intElementID, $strPropertyName = '')
 ```
 _Возвращает конкретное свойство или массив свойств элемента информационного блока._
 
+## Swebs\Helper\Iblock\Section
+```php
+Section::delete($arIDs)
+```
+_Пакетное удаление разделов информационных блоков._
+```php
+Section::getFieldsByID($intSectionID, $strFieldName = '')
+```
+_Возвращает конкретное поле или массив полей раздела информационного блока._
+
 ## Swebs\Helper\IO\Serialize
 ```php
 Serialize::write($strName, $obData)
