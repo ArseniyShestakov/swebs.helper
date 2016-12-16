@@ -10,11 +10,10 @@ class Element
 {
     private static $arElements;
 
-    public static function delete($mixID)
+    public static function delete($arIDs)
     {
-        $arIDs = $mixID;
-        if (!is_array($mixID)) {
-            $arIDs = array($mixID);
+        if (!is_array($arIDs)) {
+            $arIDs = array($arIDs);
         }
 
         foreach ($arIDs as $intID) {
