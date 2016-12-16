@@ -20,7 +20,7 @@ class Element
      * @param $intLimit
      * @return array
      */
-    public static function GetElement($intIblockID, $arFilter, $arSelect, $intLimit)
+    public static function getElement($intIblockID, $arFilter, $arSelect, $intLimit)
     {
         $arHLBlock = HighloadBlockTable::getById($intIblockID)->fetch();
         $obEntity = HighloadBlockTable::compileEntity($arHLBlock);

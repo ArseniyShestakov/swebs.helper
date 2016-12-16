@@ -9,7 +9,7 @@ Loader::includeModule('catalog');
 
 class Price
 {
-    public static function SetMinMax($intIblockElementID, $intCatalogGroupID, $strMaxPropertyName = 'MAXIMUM_PRICE', $strMinPropertyName = 'MINIMUM_PRICE')
+    public static function setMinMax($intIblockElementID, $intCatalogGroupID, $strMaxPropertyName = 'MAXIMUM_PRICE', $strMinPropertyName = 'MINIMUM_PRICE')
     {
 
         $dbElement = \CIblockElement::GetByID($intIblockElementID);

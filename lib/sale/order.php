@@ -8,7 +8,7 @@ Loader::includeModule('sale');
 
 class Order
 {
-    public static function GetPropertyValueByCode($obOrder, $strCode)
+    public static function getPropertyValueByCode($obOrder, $strCode)
     {
         $strValue = '';
         $obPropertyCollection = $obOrder->getPropertyCollection();
@@ -22,7 +22,7 @@ class Order
         return $strValue;
     }
 
-    public static function SetPropertyValueByCode($obOrder, $strCode, $strValue)
+    public static function setPropertyValueByCode($obOrder, $strCode, $strValue)
     {
         $obPropertyCollection = $obOrder->getPropertyCollection();
         foreach ($obPropertyCollection as $obProperty) {

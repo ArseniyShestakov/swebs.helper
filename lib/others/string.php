@@ -4,7 +4,7 @@ namespace Swebs\Helper\Others;
 
 class Strings
 {
-    public static function GetStringOfNum($intNum)
+    public static function getStringOfNum($intNum)
     {
         $nul = 'ноль';
         $ten = array(

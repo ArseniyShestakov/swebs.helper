@@ -8,7 +8,9 @@ Loader::includeModule('iblock');
 
 class Element
 {
-    public static function Delete($mixID)
+    private static $arElements;
+
+    public static function delete($mixID)
     {
         $arIDs = $mixID;
         if (!is_array($mixID)) {
@@ -20,5 +22,65 @@ class Element
         }
 
         return;
+    }
+
+    public static function getFieldsByID($intElementID, $strFieldName = '')
+    {
+        if (empty($intElementID)) {
+            return false;
+        }
+
+        if (!empty(self::$arElements[$intElementID]['FIELDS'])) {
+            $arFields = self::$arElements[$intElementID]['FIELDS'];
+            if (empty($strFieldName)) {
+                return $arFields;
+            } else {
+                return $arFields[$strFieldName];
+            }
+        }
+
+        $dbElement = \CIBlockElement::GetByID($intElementID);
+
+        if ($obElement = $dbElement->GetNextElement()) {
+            $arFields = $obElement->GetFields();
+            self::$arElements[$intElementID]['FIELDS'] = $arFields;
+
+            if (empty($strFieldName)) {
+                return $arFields;
+            } else {
+                return $arFields[$strFieldName];
+            }
+        }
+        return false;
+    }
+
+    public static function getPropertiesByID($intElementID, $strPropertyName = '')
+    {
+        if (empty($intElementID)) {
+            return false;
+        }
+
+        if (!empty(self::$arElements[$intElementID]['PROPERTY'])) {
+            $arProperty = self::$arElements[$intElementID]['PROPERTY'];
+            if (empty($strPropertyName)) {
+                return $arProperty;
+            } else {
+                return $arProperty[$strPropertyName];
+            }
+        }
+
+        $dbElement = \CIBlockElement::GetByID($intElementID);
+
+        if ($obElement = $dbElement->GetNextElement()) {
+            $arProperty = $obElement->GetProperties();
+            self::$arElements[$intElementID]['PROPERTY'] = $arProperty;
+
+            if (empty($strPropertyName)) {
+                return $arProperty;
+            } else {
+                return $arProperty[$strPropertyName];
+            }
+        }
+        return false;
     }
 }

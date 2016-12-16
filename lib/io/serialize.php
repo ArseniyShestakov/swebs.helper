@@ -4,7 +4,7 @@ namespace Swebs\Helper\IO;
 
 class Serialize
 {
-    public static function Write($strName, $obData)
+    public static function write($strName, $obData)
     {
         $strPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/' . $strName . '.dat';
         $strData = serialize($obData);
@@ -13,7 +13,7 @@ class Serialize
         return true;
     }
 
-    public static function Ride($strName)
+    public static function ride($strName)
     {
         $strPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/' . $strName . '.dat';
         $strData = file_get_contents($strPath);
