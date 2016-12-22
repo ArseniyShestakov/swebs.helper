@@ -10,5 +10,6 @@ CModule::AddAutoloadClasses(
         'Swebs\Helper\Sale\Price' => 'lib/sale/price.php',
         'Swebs\Helper\Others\Strings' => 'lib/others/string.php',
         'Swebs\Helper\Others\Cookie' => 'lib/others/cookie.php',
+        'Swebs\Helper\Main\User' => 'lib/main/user.php'
     )
 );
