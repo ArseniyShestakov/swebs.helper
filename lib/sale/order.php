@@ -136,14 +136,28 @@ class Order
         $shipmentCollection->calculateDelivery();
 
         // Payment
+        $arPayment = self::getPaySystems();
+        $strPayName = '';
+        foreach ($arPayment as $arItem) {
+            if ($arItem['ID'] == $arProperties['PAYMENT_ID']) {
+                $strPayName = $arItem['NAME'];
+            }
+        }
         $paymentCollection = $obOrder->getPaymentCollection();
         $extPayment = $paymentCollection->createItem();
         $extPayment->setFields(array(
             'PAY_SYSTEM_ID' => $arProperties['PAYMENT_ID'],
+            'PAY_SYSTEM_NAME' => $strPayName,
             'SUM' => $obOrder->getPrice()
         ));
 
         $obOrder->doFinalAction(true);
+
+        if (is_array($arProperties['ORDER_FIELDS'])) {
+            foreach ($arProperties['ORDER_FIELDS'] as $strCode => $strValue) {
+                $obOrder->setField($strCode, $strValue);
+            }
+        }
 
         if (is_array($arProperties['ORDER_PROPERTIES'])) {
             foreach ($arProperties['ORDER_PROPERTIES'] as $strCode => $strValue) {
