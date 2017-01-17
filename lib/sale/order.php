@@ -91,10 +91,11 @@ class Order
         if ($intUserID == NULL) {
             $intUserID = Helper\Main\User::getID(true);
         }
-        $strSiteID = Context::getCurrent()->getSite();
-        DiscountCouponsManager::init();
+        if (empty($arProperties['PERSONAL_ID'])) {
+            $arProperties['PERSONAL_ID'] = 1;
+        }
 
-        $obOrder = Order::create($strSiteID, $intUserID);
+        $strSiteID = Context::getCurrent()->getSite();
 
         $intQuantity = 1;
 
@@ -117,6 +118,38 @@ class Order
         }
         $obBasket->save();
 
+        unset($arProperties['PRODUCT_ID']);
+
+        return self::simpleOrder($intUserID, $arProperties);
+    }
+
+    public static function simpleOrder($intUserID = NULL, $arProperties)
+    {
+        if (empty($arProperties['DELIVERY_ID'])) {
+            return 'Missing required "DELIVERY_ID"!';
+        }
+        if (empty($arProperties['PAYMENT_ID'])) {
+            return 'Missing required "PAYMENT_ID"!';
+        }
+        if ($intUserID == NULL) {
+            $intUserID = Helper\Main\User::getID(true);
+        }
+        if (empty($arProperties['PERSONAL_ID'])) {
+            $arProperties['PERSONAL_ID'] = 1;
+        }
+
+        $strSiteID = Context::getCurrent()->getSite();
+
+        // Coupon
+        DiscountCouponsManager::init();
+        if (!empty($arProperties['COUPON'])) {
+            DiscountCouponsManager::add($arProperties['COUPON']);
+        }
+
+        $obOrder = Sale\Order::create($strSiteID, $intUserID);
+        $obOrder->setPersonTypeId($arProperties['PERSONAL_ID']);
+
+        $obBasket = Basket::loadItemsForFUser(Fuser::getId(), $strSiteID);
         $obOrder->setBasket($obBasket);
 
         // Shipment
@@ -136,18 +169,12 @@ class Order
         $shipmentCollection->calculateDelivery();
 
         // Payment
-        $arPayment = self::getPaySystems();
-        $strPayName = '';
-        foreach ($arPayment as $arItem) {
-            if ($arItem['ID'] == $arProperties['PAYMENT_ID']) {
-                $strPayName = $arItem['NAME'];
-            }
-        }
+        $arPaymentFields = \CSalePaySystem::GetByID($arProperties['PAYMENT_ID']);
         $paymentCollection = $obOrder->getPaymentCollection();
         $extPayment = $paymentCollection->createItem();
         $extPayment->setFields(array(
             'PAY_SYSTEM_ID' => $arProperties['PAYMENT_ID'],
-            'PAY_SYSTEM_NAME' => $strPayName,
+            'PAY_SYSTEM_NAME' => $arPaymentFields['NAME'],
             'SUM' => $obOrder->getPrice()
         ));
 
