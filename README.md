@@ -13,7 +13,7 @@
 
 ## Swebs\Helper\Highload\Element
 ```php
-Element::getElement($intIblockID, $arFilter, $arSelect, $intLimit)
+Element::getElement($intIblockID, $arFilter, $arSelect, $intLimit = 0)
 ```
 _Возвращает элементы Highload инфоблока в виде массива. При необходимости можно использовать фильтрацию, указать нужные поля и ограничить количество._
 

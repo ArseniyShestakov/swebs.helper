@@ -20,17 +20,22 @@ class Element
      * @param $intLimit
      * @return array
      */
-    public static function getElement($intIblockID, $arFilter, $arSelect, $intLimit)
+    public static function getElement($intIblockID, $arFilter, $arSelect, $intLimit = 0)
     {
         $arHLBlock = HighloadBlockTable::getById($intIblockID)->fetch();
         $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
         $strEntityDataClass = $obEntity->getDataClass();
 
-        $dbData = $strEntityDataClass::getList(array(
+        $arQuery = array(
             'select' => $arSelect,
-            'filter' => $arFilter,
-            'limit' => $intLimit,
-        ));
+            'filter' => $arFilter
+        );
+
+        if (is_numeric($intLimit) && $intLimit > 0) {
+            $arQuery['limit'] = $intLimit;
+        }
+
+        $dbData = $strEntityDataClass::getList($arQuery);
 
         $arElements = $dbData->fetchAll();
 
