@@ -22,9 +22,7 @@ class Element
      */
     public static function getElement($intIblockID, $arFilter, $arSelect, $intLimit = 0)
     {
-        $arHLBlock = HighloadBlockTable::getById($intIblockID)->fetch();
-        $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
-        $strEntityDataClass = $obEntity->getDataClass();
+        $strEntityDataClass = self::getEntityDataClass($intIblockID);
 
         $arQuery = array(
             'select' => $arSelect,
@@ -40,5 +38,22 @@ class Element
         $arElements = $dbData->fetchAll();
 
         return $arElements;
+    }
+
+    public static function update($intIblockID, $intElementID, $arUpdate)
+    {
+        $strEntityDataClass = self::getEntityDataClass($intIblockID);
+        $obResult = $strEntityDataClass::update($intElementID, $arUpdate);
+
+        return $obResult;
+    }
+
+    private static function getEntityDataClass($intIblockID)
+    {
+        $arHLBlock = HighloadBlockTable::getById($intIblockID)->fetch();
+        $obEntity = HighloadBlockTable::compileEntity($arHLBlock);
+        $strEntityDataClass = $obEntity->getDataClass();
+
+        return $strEntityDataClass;
     }
 }
