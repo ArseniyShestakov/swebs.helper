@@ -103,6 +103,12 @@ Strings::getStringOfNum($intNum)
 ```
 _Возвращает прописью переданное число._
 
+## Swebs\Helper\Others\DateTime
+```php
+DateTime::getInterval($obFirstData, $obSecondData)
+```
+_Принимает два объекта Bitrix\Main\Type\DateTime и возвращает массив с разницей. Ключи возвращаемого массива: 0 - секунды; 1 - минуты; 2 - часы; 3 - дни; 4 - года._
+
 ## Swebs\Helper\Main\User
 ```php
 User::getID($isAllowAnonymous = false)
