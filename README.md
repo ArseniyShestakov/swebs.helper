@@ -45,6 +45,16 @@ Section::getFieldsByID($intSectionID, $strFieldName = '')
 ```
 _Возвращает конкретное поле или массив полей раздела информационного блока._
 
+## Swebs\Helper\Iblock\Property
+```php
+Property::getIdByName($intIblockID, $strName, $arParams = array())
+```
+_Возвращает ID свойства инфоблока по его имени. Если совойство с таким именем не найдено то оно будет создано. В массиве $arParams можно передать поля для нового свойства._
+```php
+Property::getIdEnumValue($intIblockID, $strPropertyName, $strValueName)
+```
+_Возвращает ID свойства-списка инфоблока по его имени и ID варианта значения так же по его имени в виде массива. Если совойство с таким именем не найдено то оно будет создано. Если искомый вариант значения не найден то он будет создан._
+
 ## Swebs\Helper\IO\Serialize
 ```php
 Serialize::write($strName, $obData)
