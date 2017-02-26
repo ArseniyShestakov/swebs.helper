@@ -97,7 +97,7 @@ Price::setMinMax($intIblockElementID, $intCatalogGroupID, $strMaxPropertyName = 
 ```
 _Заполняет указанные свойства товара минимальной и максимальной ценой из всех имеющихся предложений данного товара._
 ```php
-Price::add($intProductID, $intPriceTypeID, $floatPrice)
+Price::add($intProductID, $intPriceTypeID, $floatPrice, $strCurrency = 'RUB')
 ```
 _Устанавливает для товара $intProductID цену типа $intPriceTypeID в значение $floatPrice. Если цена есть то обновлет. Если нет - добавляет._
 

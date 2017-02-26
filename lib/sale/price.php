@@ -45,11 +45,12 @@ class Price
         }
     }
 
-    static public function add($intProductID, $intPriceTypeID, $floatPrice)
+    static public function add($intProductID, $intPriceTypeID, $floatPrice, $strCurrency = 'RUB')
     {
         $arFields = array(
             'PRODUCT_ID' => $intProductID,
-            'CATALOG_GROUP_ID' => $intPriceTypeID
+            'CATALOG_GROUP_ID' => $intPriceTypeID,
+            'CURRENCY' => $strCurrency
         );
 
         $dbPrice = \CPrice::GetList(array(), $arFields);
