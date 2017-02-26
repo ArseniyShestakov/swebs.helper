@@ -96,6 +96,10 @@ _Создаёт быстрый заказ. От предыдущего мето�
 Price::setMinMax($intIblockElementID, $intCatalogGroupID, $strMaxPropertyName = 'MAXIMUM_PRICE', $strMinPropertyName = 'MINIMUM_PRICE')
 ```
 _Заполняет указанные свойства товара минимальной и максимальной ценой из всех имеющихся предложений данного товара._
+```php
+Price::add($intProductID, $intPriceTypeID, $floatPrice)
+```
+_Устанавливает для товара $intProductID цену типа $intPriceTypeID в значение $floatPrice. Если цена есть то обновлет. Если нет - добавляет._
 
 ## Swebs\Helper\Others\Cookie
 ```php

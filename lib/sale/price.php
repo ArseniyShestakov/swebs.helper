@@ -44,4 +44,21 @@ class Price
             \CIBlockElement::SetPropertyValuesEx($arElement['ID'], false, array($strMaxPropertyName => $arMaximum['PRICE']));
         }
     }
+
+    static public function add($intProductID, $intPriceTypeID, $floatPrice)
+    {
+        $arFields = array(
+            'PRODUCT_ID' => $intProductID,
+            'CATALOG_GROUP_ID' => $intPriceTypeID
+        );
+
+        $dbPrice = \CPrice::GetList(array(), $arFields);
+
+        $arFields['PRICE'] = $floatPrice;
+        if ($arPrice = $dbPrice->GetNext()) {
+            \CPrice::Update($arPrice['ID'], $arFields);
+        } else {
+            \CPrice::Add($arFields);
+        }
+    }
 }
