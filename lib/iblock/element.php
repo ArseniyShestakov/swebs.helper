@@ -20,7 +20,7 @@ class Element
             \CIBlockElement::Delete($intID);
         }
 
-        return;
+        return true;
     }
 
     public static function getFieldsByID($intElementID, $strFieldName = '')
@@ -81,5 +81,35 @@ class Element
             }
         }
         return false;
+    }
+
+    public static function deactivate($arIDs)
+    {
+        return self::update($arIDs, array('ACTIVE' => 'Y'));
+    }
+
+    public static function activate($arIDs)
+    {
+        return self::update($arIDs, array('ACTIVE' => 'N'));
+    }
+
+    private static function update($arIDs, $arFields)
+    {
+        if (!is_array($arIDs)) {
+            $arIDs = array($arIDs);
+        }
+
+        $bResult = false;
+
+        $obElement = new \CIBlockElement;
+        foreach ($arIDs as $intID) {
+            if ($obElement->Update($intID, $arFields)) {
+                $bResult = true;
+            } else {
+                $bResult = false;
+            }
+        }
+
+        return $bResult;
     }
 }
