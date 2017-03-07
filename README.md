@@ -13,13 +13,17 @@
 
 ## Swebs\Helper\Highload\Element
 ```php
-Element::getElement($intIblockID, $arFilter, $arSelect, $intLimit = 0)
+Element::getElement($intIblockID, $arFilter = array(), $arSelect = array(), $intLimit = 0)
 ```
 _Возвращает элементы Highload инфоблока в виде массива. При необходимости можно использовать фильтрацию, указать нужные поля и ограничить количество._
 ```php
 Element::update($intIblockID, $intElementID, $arUpdate)
 ```
 _Обновляет элемент Highload инфоблока. Принимает на вход id инфоблока, id элемента и массив полей со значениями. Можно передавать только то поле которое необходимо обновить. Возвращает объект результата._
+```php
+Element::add($intIblockID, $arFields)
+```
+_Добавляет новый элемент Highload инфоблока. Принимает на вход id инфоблока и массив полей со значениями. Возвращает объект результата._
 
 ## Swebs\Helper\Iblock\Element
 ```php

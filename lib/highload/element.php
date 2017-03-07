@@ -20,14 +20,19 @@ class Element
      * @param $intLimit
      * @return array
      */
-    public static function getElement($intIblockID, $arFilter, $arSelect, $intLimit = 0)
+    public static function getElement($intIblockID, $arFilter = array(), $arSelect = array(), $intLimit = 0)
     {
         $strEntityDataClass = self::getEntityDataClass($intIblockID);
 
-        $arQuery = array(
-            'select' => $arSelect,
-            'filter' => $arFilter
-        );
+        $arQuery = array();
+
+        if (!empty($arFilter)) {
+            $arQuery['filter'] = $arFilter;
+        }
+
+        if (!empty($arSelect)) {
+            $arQuery['select'] = $arSelect;
+        }
 
         if (is_numeric($intLimit) && $intLimit > 0) {
             $arQuery['limit'] = $intLimit;
@@ -44,6 +49,14 @@ class Element
     {
         $strEntityDataClass = self::getEntityDataClass($intIblockID);
         $obResult = $strEntityDataClass::update($intElementID, $arUpdate);
+
+        return $obResult;
+    }
+
+    public static function add($intIblockID, $arFields)
+    {
+        $strEntityDataClass = self::getEntityDataClass($intIblockID);
+        $obResult = $strEntityDataClass::add($arFields);
 
         return $obResult;
     }
