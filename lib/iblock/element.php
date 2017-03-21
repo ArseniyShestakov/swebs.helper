@@ -3,6 +3,7 @@
 namespace Swebs\Helper\Iblock;
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\SystemException;
 
 Loader::includeModule('iblock');
 
@@ -26,7 +27,7 @@ class Element
     public static function getFieldsByID($intElementID, $strFieldName = '')
     {
         if (empty($intElementID)) {
-            return false;
+            throw new SystemException('$intElementID is required');
         }
 
         if (!empty(self::$arElements[$intElementID]['FIELDS'])) {
@@ -56,7 +57,7 @@ class Element
     public static function getPropertiesByID($intElementID, $strPropertyName = '')
     {
         if (empty($intElementID)) {
-            return false;
+            throw new SystemException('$intElementID is required');
         }
 
         if (!empty(self::$arElements[$intElementID]['PROPERTY'])) {
@@ -99,17 +100,13 @@ class Element
             $arIDs = array($arIDs);
         }
 
-        $bResult = false;
-
         $obElement = new \CIBlockElement;
         foreach ($arIDs as $intID) {
-            if ($obElement->Update($intID, $arFields)) {
-                $bResult = true;
-            } else {
-                $bResult = false;
+            if (!$obElement->Update($intID, $arFields)) {
+                throw new SystemException($obElement->LAST_ERROR);
             }
         }
 
-        return $bResult;
+        return true;
     }
 }

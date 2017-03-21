@@ -2,6 +2,8 @@
 
 namespace Swebs\Helper\Main;
 
+use Bitrix\Main\SystemException;
+
 class User
 {
     public static function getID($isAllowAnonymous = false)
@@ -39,9 +41,7 @@ class User
             if (intval($intUserID)) {
                 $arParams['ID'] = $intUserID;
             } else {
-                $arParams = array(
-                    'ERROR' => $obUser->LAST_ERROR
-                );
+                throw new SystemException($obUser->LAST_ERROR);
             }
 
             return $arParams;

@@ -3,6 +3,7 @@
 namespace Swebs\Helper\Iblock;
 
 use Bitrix\Main\Loader;
+use Bitrix\Main\SystemException;
 
 Loader::includeModule('iblock');
 
@@ -26,7 +27,7 @@ class Section
     public static function getFieldsByID($intSectionID, $strFieldName = '')
     {
         if (empty($intSectionID)) {
-            return false;
+            throw new SystemException('$intSectionID is required');
         }
 
         if (!empty(self::$arSections[$intSectionID]['FIELDS'])) {

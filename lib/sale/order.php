@@ -10,6 +10,7 @@ use Bitrix\Sale\Basket;
 use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Swebs\Helper;
+use Bitrix\Main\SystemException;
 
 Loader::includeModule('sale');
 
@@ -80,13 +81,13 @@ class Order
     public static function byOneClick($intUserID = NULL, $arProperties)
     {
         if (empty($arProperties['PRODUCT_ID'])) {
-            return 'Missing required "PRODUCT_ID"!';
+            throw new SystemException('Missing required "PRODUCT_ID"');
         }
         if (empty($arProperties['DELIVERY_ID'])) {
-            return 'Missing required "DELIVERY_ID"!';
+            throw new SystemException('Missing required "DELIVERY_ID"');
         }
         if (empty($arProperties['PAYMENT_ID'])) {
-            return 'Missing required "PAYMENT_ID"!';
+            throw new SystemException('Missing required "PAYMENT_ID"');
         }
         if ($intUserID == NULL) {
             $intUserID = Helper\Main\User::getID(true);
@@ -126,10 +127,10 @@ class Order
     public static function simpleOrder($intUserID = NULL, $arProperties)
     {
         if (empty($arProperties['DELIVERY_ID'])) {
-            return 'Missing required "DELIVERY_ID"!';
+            throw new SystemException('Missing required "DELIVERY_ID"');
         }
         if (empty($arProperties['PAYMENT_ID'])) {
-            return 'Missing required "PAYMENT_ID"!';
+            throw new SystemException('Missing required "PAYMENT_ID"');
         }
         if ($intUserID == NULL) {
             $intUserID = Helper\Main\User::getID(true);
@@ -195,7 +196,7 @@ class Order
         $obRes = $obOrder->save();
 
         if (!$obRes->isSuccess()) {
-            return $obRes->getErrors();
+            throw new SystemException($obRes->getErrors());
         }
 
         return $obOrder->GetId();
