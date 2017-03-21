@@ -1,5 +1,11 @@
 <?php
+
+use Bitrix\Main\Localization\Loc;
+
+Loc::loadMessages(__FILE__);
+
 if (class_exists('swebs_helper')) return;
+
 
 Class swebs_helper extends CModule
 {
@@ -15,15 +21,15 @@ Class swebs_helper extends CModule
     function swebs_helper()
     {
         $arModuleVersion = array();
-        include(dirname(__FILE__) . "/version.php");
+        include(dirname(__FILE__) . '/version.php');
 
         $this->MODULE_VERSION = $arModuleVersion['VERSION'];
         $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         $this->MODULE_NAME = 'Helper';
-        $this->MODULE_DESCRIPTION = 'Вспомогательные функции';
+        $this->MODULE_DESCRIPTION = Loc::getMessage('DESCRIPTION');
 
-        $this->PARTNER_NAME = "s-webs";
-        $this->PARTNER_URI = "http://www.s-webs.ru/";
+        $this->PARTNER_NAME = 's-webs';
+        $this->PARTNER_URI = 'http://www.s-webs.ru/';
     }
 
     function DoInstall()
