@@ -86,12 +86,12 @@ class Element
 
     public static function deactivate($arIDs)
     {
-        return self::update($arIDs, array('ACTIVE' => 'Y'));
+        return self::update($arIDs, array('ACTIVE' => 'N'));
     }
 
     public static function activate($arIDs)
     {
-        return self::update($arIDs, array('ACTIVE' => 'N'));
+        return self::update($arIDs, array('ACTIVE' => 'Y'));
     }
 
     private static function update($arIDs, $arFields)
