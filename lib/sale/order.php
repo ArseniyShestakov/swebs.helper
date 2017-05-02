@@ -5,12 +5,12 @@ namespace Swebs\Helper\Sale;
 use Bitrix\Currency\CurrencyManager;
 use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
+use Bitrix\Main\SystemException;
 use Bitrix\Sale;
 use Bitrix\Sale\Basket;
 use Bitrix\Sale\DiscountCouponsManager;
 use Bitrix\Sale\Fuser;
 use Swebs\Helper;
-use Bitrix\Main\SystemException;
 
 Loader::includeModule('sale');
 
@@ -101,6 +101,9 @@ class Order
         $intQuantity = 1;
 
         $obBasket = Basket::loadItemsForFUser(Fuser::getId(), $strSiteID);
+
+        self::emptyBasket($obBasket);
+
         if ($obItem = $obBasket->getExistsItem('catalog', $arProperties['PRODUCT_ID'])) {
             $obItem->setField('QUANTITY', $obItem->getQuantity() + $intQuantity);
         } else {
@@ -200,5 +203,16 @@ class Order
         }
 
         return $obOrder->GetId();
+    }
+
+    public static function emptyBasket(Basket $obBasket)
+    {
+        if (empty($obBasket)) {
+            throw new SystemException('Missing required "$obBasket"');
+        }
+        foreach ($obBasket as $obItem) {
+            $obItem->delete();
+            $obBasket->save();
+        }
     }
 }
