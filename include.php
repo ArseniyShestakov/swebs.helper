@@ -9,6 +9,7 @@ CModule::AddAutoloadClasses(
         'Swebs\Helper\Iblock\Property' => 'lib/iblock/property.php',
         'Swebs\Helper\Sale\Order' => 'lib/sale/order.php',
         'Swebs\Helper\Sale\Price' => 'lib/sale/price.php',
+        'Swebs\Helper\Sale\Basket' => 'lib/sale/basket.php',
         'Swebs\Helper\Others\Strings' => 'lib/others/string.php',
         'Swebs\Helper\Others\Cookie' => 'lib/others/cookie.php',
         'Swebs\Helper\Others\DateTime' => 'lib/others/datetime.php',

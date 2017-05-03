@@ -102,7 +102,7 @@ class Order
 
         $obBasket = Basket::loadItemsForFUser(Fuser::getId(), $strSiteID);
 
-        self::emptyBasket($obBasket);
+        Helper\Sale\Basket::clean($obBasket);
 
         if ($obItem = $obBasket->getExistsItem('catalog', $arProperties['PRODUCT_ID'])) {
             $obItem->setField('QUANTITY', $obItem->getQuantity() + $intQuantity);
@@ -203,16 +203,5 @@ class Order
         }
 
         return $obOrder->GetId();
-    }
-
-    public static function emptyBasket(Basket $obBasket)
-    {
-        if (empty($obBasket)) {
-            throw new SystemException('Missing required "$obBasket"');
-        }
-        foreach ($obBasket as $obItem) {
-            $obItem->delete();
-            $obBasket->save();
-        }
     }
 }

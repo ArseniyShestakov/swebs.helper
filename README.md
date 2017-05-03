@@ -77,6 +77,16 @@ Serialize::ride($strName)
 ```
 _Получает любой сохранённый предыдущим методом объект из файла в upload._
 
+## Swebs\Helper\Sale\Basket
+```php
+Basket::clean($obBasket)
+```
+_Очищает корзину. В качестве параметра принимает объект корзины Bitrix\Sale\Basket. Не возвращает ничего._
+```php
+Basket::add($intProductID, $intQuantity = 1)
+```
+_Добавляет товар с кодом $intProductID и количеством $intQuantity в корзину. Не возвращает ничего._
+
 ## Swebs\Helper\Sale\Order
 ```php
 Order::getPropertyValueByCode($obOrder, $strCode)
@@ -102,10 +112,6 @@ _Создаёт простой заказ. Если id пользователя 
 Order::byOneClick($intUserID = NULL, $arProperties)
 ```
 _Создаёт быстрый заказ. От предыдущего метода отличается необходимостью передать в ключе 'PRODUCT_ID' в массиве $arProperties идентификатор товара. Метод создавался для часто используемого функционала "Заказ в один клик"._
-```php
-Order::emptyBasket($obBasket)
-```
-_Очищает корзину. В качестве параметра принимает объект корзины Bitrix\Sale\Basket. Не возвращает ничего._
 
 ## Swebs\Helper\Sale\Price
 ```php
