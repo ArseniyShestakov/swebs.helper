@@ -4,6 +4,7 @@ namespace Swebs\Helper\Highload;
 
 use Bitrix\Highloadblock\HighloadBlockTable;
 use Bitrix\Main\Loader;
+use Bitrix\Main\SystemException;
 
 Loader::includeModule('highloadblock');
 
@@ -50,7 +51,11 @@ class Element
         $strEntityDataClass = self::getEntityDataClass($intIblockID);
         $obResult = $strEntityDataClass::update($intElementID, $arUpdate);
 
-        return $obResult;
+        if (!$obResult->isSuccess()) {
+            throw new SystemException($obResult->getErrorMessages());
+        }
+
+        return true;
     }
 
     public static function add($intIblockID, $arFields)
@@ -58,7 +63,11 @@ class Element
         $strEntityDataClass = self::getEntityDataClass($intIblockID);
         $obResult = $strEntityDataClass::add($arFields);
 
-        return $obResult;
+        if (!$obResult->isSuccess()) {
+            throw new SystemException($obResult->getErrorMessages());
+        }
+
+        return $obResult->getId();
     }
 
     private static function getEntityDataClass($intIblockID)
