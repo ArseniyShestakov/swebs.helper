@@ -7,7 +7,7 @@ class Debug
     public static function show($obData, $strFlag = false) {
         global $USER;
 
-        if ($strFlag !== false) {
+        if ($strFlag === false) {
             if (!$USER->IsAdmin()) {
                 return false;
             }

@@ -73,4 +73,39 @@ class Property
 
         return $arOut;
     }
+
+    static public function getValuesPropertyString($intIblockID, $strPropertyCode)
+    {
+        $arFilter = array(
+            'IBLOCK_ID' => $intIblockID,
+            'ACTIVE' => 'Y'
+        );
+        $arSelect = array(
+            'PROPERTY_' . $strPropertyCode,
+        );
+        $dbElement = \CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
+        $arResult = array();
+        while ($arFields = $dbElement->GetNext()) {
+            $intID = $arFields['PROPERTY_' . $strPropertyCode . '_VALUE_ID'];
+            $arResult[$intID] = $arFields['PROPERTY_' . $strPropertyCode . '_VALUE'];
+        }
+
+        return $arResult;
+    }
+
+    static public function getValuesPropertyEnum($intIblockID, $strPropertyCode)
+    {
+        $arResult = array();
+
+        $arFilter = array(
+            'IBLOCK_ID' => $intIblockID,
+            'PROPERTY_ID' => $strPropertyCode,
+        );
+        $dbEnum = \CIBlockPropertyEnum::GetList(array(), $arFilter);
+        while ($arFields = $dbEnum->GetNext()) {
+            $arResult[$arFields['ID']] = $arFields['VALUE'];
+        }
+
+        return $arResult;
+    }
 }
