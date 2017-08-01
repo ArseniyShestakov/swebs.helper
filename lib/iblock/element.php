@@ -24,13 +24,13 @@ class Element
         return true;
     }
 
-    public static function getFieldsByID($intElementID, $strFieldName = '')
+    public static function getFieldsByID($intElementID, $strFieldName = '', $bRefresh = false)
     {
         if (empty($intElementID)) {
             throw new SystemException('$intElementID is required');
         }
 
-        if (!empty(self::$arElements[$intElementID]['FIELDS'])) {
+        if (!empty(self::$arElements[$intElementID]['FIELDS']) && $bRefresh === false) {
             $arFields = self::$arElements[$intElementID]['FIELDS'];
             if (empty($strFieldName)) {
                 return $arFields;
@@ -54,13 +54,13 @@ class Element
         return false;
     }
 
-    public static function getPropertiesByID($intElementID, $strPropertyName = '')
+    public static function getPropertiesByID($intElementID, $strPropertyName = '', $bRefresh = false)
     {
         if (empty($intElementID)) {
             throw new SystemException('$intElementID is required');
         }
 
-        if (!empty(self::$arElements[$intElementID]['PROPERTY'])) {
+        if (!empty(self::$arElements[$intElementID]['PROPERTY']) && $bRefresh === false) {
             $arProperty = self::$arElements[$intElementID]['PROPERTY'];
             if (empty($strPropertyName)) {
                 return $arProperty;

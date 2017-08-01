@@ -31,13 +31,13 @@ Element::delete($arIDs)
 ```
 _Пакетное удаление элементов информационных блоков._
 ```php
-Element::getFieldsByID($intElementID, $strFieldName = '')
+Element::getFieldsByID($intElementID, $strFieldName = '', $bRefresh = false)
 ```
-_Возвращает конкретное поле или массив полей элемента информационного блока._
+_Возвращает конкретное поле или массив полей элемента информационного блока. Кэширует выбранные данные в пределах одного хита. Если передать $bRefresh как true, то выполнит запрос из БД и обновит кэш._
 ```php
-Element::getPropertiesByID($intElementID, $strPropertyName = '')
+Element::getPropertiesByID($intElementID, $strPropertyName = '', $bRefresh = false)
 ```
-_Возвращает конкретное свойство или массив свойств элемента информационного блока._
+_Возвращает конкретное свойство или массив свойств элемента информационного блока. Кэширует выбранные данные в пределах одного хита. Если передать $bRefresh как true, то выполнит запрос из БД и обновит кэш._
 ```php
 Element::deactivate($arIDs)
 ```
