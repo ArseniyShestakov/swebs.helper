@@ -161,6 +161,12 @@ DateTime::getInterval($obFirstData, $obSecondData)
 ```
 _Принимает два объекта Bitrix\Main\Type\DateTime и возвращает массив с разницей. Ключи возвращаемого массива: 0 - секунды; 1 - минуты; 2 - часы; 3 - дни; 4 - года._
 
+## Swebs\Helper\Others\Image
+```php
+Image::resize($intFileID, $intWidth = 999999, $intHeight = 999999)
+```
+_Уменьшает изображение с id $intFileID до ширины $intWidth и высоты $intHeight пропорционально. Возвращает массив._
+
 ## Swebs\Helper\Main\User
 ```php
 User::getID($isAllowAnonymous = false)

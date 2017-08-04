@@ -13,6 +13,7 @@ CModule::AddAutoloadClasses(
         'Swebs\Helper\Others\Strings' => 'lib/others/string.php',
         'Swebs\Helper\Others\Cookie' => 'lib/others/cookie.php',
         'Swebs\Helper\Others\DateTime' => 'lib/others/datetime.php',
+        'Swebs\Helper\Others\Image' => 'lib/others/image.php',
         'Swebs\Helper\Main\User' => 'lib/main/user.php',
         'Swebs\Helper\Main\Debug' => 'lib/main/debug.php',
         'Swebs\Helper\Main\GarbageStorage' => 'lib/main/garbage_storage.php'
