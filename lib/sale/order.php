@@ -109,7 +109,10 @@ class Order
         } else {
             $strProductXmlId = Helper\Iblock\Element::getFieldsByID($arProperties['PRODUCT_ID'], 'XML_ID');
             $intSectionID = Helper\Iblock\Element::getFieldsByID($arProperties['PRODUCT_ID'], 'IBLOCK_SECTION_ID');
-            $strCatalogXmlId = Helper\Iblock\Section::getFieldsByID($intSectionID, 'XML_ID');
+            $strCatalogXmlId = '';
+            if (is_numeric($intSectionID)) {
+                $strCatalogXmlId = Helper\Iblock\Section::getFieldsByID($intSectionID, 'XML_ID');
+            }
             $obItem = $obBasket->createItem('catalog', $arProperties['PRODUCT_ID']);
             $obItem->setFields(array(
                 'QUANTITY' => $intQuantity,
