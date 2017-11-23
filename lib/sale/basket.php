@@ -48,7 +48,12 @@ class Basket
 
         $obBasket = Sale\Basket::loadItemsForFUser(Sale\Fuser::getId(), $obContext->getSite());
 
-        return $obBasket->count();
+        $intCount = 0;
+        foreach ($obBasket as $obBasketItem) {
+            $intCount += $obBasketItem->getQuantity();
+        }
+
+        return $intCount;
     }
 
     public static function getDiscountSum($strCoupon = '')
